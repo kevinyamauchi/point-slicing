@@ -1,5 +1,7 @@
 from argparse import ArgumentParser, Namespace
 
+import numpy as np
+
 from utils.logger import logger
 from utils.vars import (
     DEFAULT_CHUNK_SIZE,
@@ -8,7 +10,7 @@ from utils.vars import (
     DEFAULT_X,
     DEFAULT_Y,
     DEFAULT_Z,
-    FLOAT64_BYTES,
+    DTYPE,
 )
 
 
@@ -61,6 +63,6 @@ def read_args() -> Namespace:
         f"dimensions: {args.ndim}, "
         f"points per dimensions: {args.points}, "
         f"chunk size: {args.chunksize}, "
-        f"number of bytes {FLOAT64_BYTES*args.points**args.ndim:e}"
+        f"number of bytes {np.dtype(DTYPE).itemsize*args.points**args.ndim:e}"
     )
     return args
