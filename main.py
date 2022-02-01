@@ -1,32 +1,39 @@
-from timeit import default_timer as timer
+from pathlib import Path
 
-import numpy as np
+import dask.array as da
 import zarr
-from numpy.random import default_rng
 
-DTYPE = np.float32
-RANDOM_SEED = 30
+from utils.cli import read_args
+from utils.timer import timer
+
+_file_location = Path(__file__).resolve()
+
+CHUNK_SIZE = 100
+NDIM = 3
+POINTS = 1_000
 
 
+@timer
 def create_zarr_random_points(
-    dims: int, points_per_dim: int, chunk_size: int = 1_000
+    ndim: int, points_per_dim: int, chunk_size: int
 ) -> zarr.Array:
     """
     creates a d-dimensional zarr dataset of radnomly distributed points
     """
-    # initialise empty zarr array
-    box = zarr.zeros((points_per_dim,) * dims, chunks=(chunk_size,) * dims, dtype=DTYPE)
-
-    # initialise random number generator
-    rng = default_rng(RANDOM_SEED)
-
-    # fill zarr array with random points from uniform distribution
-    box[:] = rng.random(size=box.shape, dtype=DTYPE)
+    filepath = (
+        _file_location.parent
+        / "data"
+        / f"random_points_dim{ndim}_points{points_per_dim}.zarr"
+    )
+    if filepath.exists():
+        box = zarr.load(filepath)
+    else:
+        box = da.random.random(
+            size=(points_per_dim,) * ndim, chunks=(chunk_size,) * ndim
+        ).to_zarr(filepath)
     return box
 
 
 if __name__ == "__main__":
-    start = timer()
-    z = create_zarr_random_points(3, 10_000)
-    end = timer()
-    print(f"Time taken: {end - start}")
+    args = read_args()
+    z = create_zarr_random_points(args.ndim, args.points, args.chunksize)
