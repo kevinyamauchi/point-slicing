@@ -21,6 +21,7 @@ class ZarrExperiment:
             / "data"
             / f"random_points_dim{self.ndim}_points{self.points_per_dim}.zarr"
         )
+        self._rng = default_rng(RANDOM_SEED)
         self._create_zarr_random_points()
 
     @timer
@@ -39,8 +40,7 @@ class ZarrExperiment:
                 chunks=(self.chunk_size,) * self.ndim,
                 dtype=DTYPE,
             )
-            rng = default_rng(RANDOM_SEED)
-            self.box[:] = rng.random(box_shape)
+            self.box[:] = self._rng.random(box_shape)
 
     def find_2d_slice_of_3d_box(self, x: int, y: int, z: int) -> zarr.Array:
         """
