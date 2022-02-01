@@ -1,7 +1,12 @@
 from argparse import ArgumentParser, Namespace
 
 from utils.logger import logger
-from utils.vars import DEFAULT_CHUNK_SIZE, DEFAULT_NDIM, DEFAULT_POINTS_PER_DIM
+from utils.vars import (
+    DEFAULT_CHUNK_SIZE,
+    DEFAULT_NDIM,
+    DEFAULT_POINTS_PER_DIM,
+    FLOAT64_BYTES,
+)
 
 
 def read_args() -> Namespace:
@@ -18,7 +23,7 @@ def read_args() -> Namespace:
     )
     parser.add_argument(
         "--ndim",
-        "-n",
+        "-d",
         type=int,
         default=DEFAULT_NDIM,
         help=f"box dimensions: {DEFAULT_NDIM}",
@@ -32,7 +37,9 @@ def read_args() -> Namespace:
     )
     args = parser.parse_args()
     logger.info(
-        f"dimensions: {args.ndim}, points per dimensions: "
-        f"{args.points}, chunk size: {args.chunksize}"
+        f"dimensions: {args.ndim}, "
+        f"points per dimensions: {args.points}, "
+        f"chunk size: {args.chunksize}, "
+        f"requested number of bytes {FLOAT64_BYTES*args.points**args.ndim:e}"
     )
     return args
