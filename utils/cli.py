@@ -44,19 +44,19 @@ def read_args() -> Namespace:
         "-x",
         type=int,
         default=DEFAULT_X,
-        help=f"x-coordinate of slice, default: {DEFAULT_X}",
+        help=f"Euler angle of x-coordinate, default: {DEFAULT_X}",
     )
     parser.add_argument(
         "-y",
         type=int,
         default=DEFAULT_Y,
-        help=f"y-coordinate of slice, default: {DEFAULT_Y}",
+        help=f"Euler angle of y-coordinate default: {DEFAULT_Y}",
     )
     parser.add_argument(
         "-z",
         type=int,
         default=DEFAULT_Z,
-        help=f"z-coordinate of slice, default: {DEFAULT_Z}",
+        help=f"Euler angle of z-coordinate, default: {DEFAULT_Z}",
     )
     args = parser.parse_args()
     logger.info(

@@ -3,6 +3,7 @@ from pathlib import Path
 
 import zarr
 from numpy.random import default_rng
+from scipy.spatial.transform import Rotation as R
 from zarr.errors import PathNotFoundError
 
 from utils.cli import read_args
@@ -45,16 +46,16 @@ class ZarrExperiment:
             )
             self.box[:] = self._rng.random(box_shape)
 
-    def find_2d_slice_of_3d_box(self, x: int, y: int, z: int) -> zarr.Array:
+    def extract_slice(self, x: int, y: int, z: int) -> zarr.Array:
         """
         Finds a 2d slice of a 3d points using linear search by calculating
         distance to the slicing plane for each point. Points within 0.5 units
         of the slice are classed as belonging to the slice.
         """
-        return self.box[x, y, z]
+        return R.from_euler("zyx", [z, y, x], degrees=True).as_matrix()
 
 
 if __name__ == "__main__":
     args = read_args()
     z = ZarrExperiment(args.chunksize, args.ndim, args.points)
-    z.find_2d_slice_of_3d_box(args.x, args.y, args.z)
+    z.extract_slice(args.x, args.y, args.z)
