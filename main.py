@@ -8,10 +8,6 @@ from utils.timer import timer
 
 _file_location = Path(__file__).resolve()
 
-CHUNK_SIZE = 100
-NDIM = 3
-POINTS = 1_000
-
 
 @timer
 def create_zarr_random_points(
