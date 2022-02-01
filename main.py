@@ -1,3 +1,4 @@
+from dataclasses import dataclass
 from pathlib import Path
 
 import zarr
@@ -11,11 +12,13 @@ from utils.vars import DTYPE, RANDOM_SEED
 _file_location = Path(__file__).resolve()
 
 
+@dataclass
 class ZarrExperiment:
-    def __init__(self, chunk_size: int, ndim: int, points_per_dim: int) -> None:
-        self.chunk_size = chunk_size
-        self.ndim = ndim
-        self.points_per_dim = points_per_dim
+    chunk_size: int
+    ndim: int
+    points_per_dim: int
+
+    def __post_init__(self) -> None:
         self._data_path = (
             _file_location.parent
             / "data"
