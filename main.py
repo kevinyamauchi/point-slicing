@@ -44,7 +44,7 @@ class ZarrExperiment:
                 chunks=(self.chunk_size,) * self.ndim,
                 dtype=DTYPE,
             )
-            self.box[:] = self._rng.random(box_shape)
+            self.box[:] = self._rng.random(box_shape, dtype=DTYPE)
 
     def extract_slice(self, x: int, y: int, z: int) -> zarr.Array:
         """
