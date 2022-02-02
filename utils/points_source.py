@@ -6,11 +6,7 @@ import numpy as np
 
 class PointsSource(ABC):
     def __init__(self, data):
-        self._load_data(data)
-
-    @abstractmethod
-    def _load_data(self, data):
-        raise NotImplementedError
+        self._data = data
 
     @abstractmethod
     def slice_data(self, slice_indices):
