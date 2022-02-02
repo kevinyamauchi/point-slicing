@@ -13,9 +13,9 @@ _file_location = Path(__file__).resolve()
 
 @dataclass
 class CreateData:
-    chunk_size: int
     ndim: int
     points_per_dim: int
+    chunk_size: int
 
     def __post_init__(self) -> None:
         self._data_path = (

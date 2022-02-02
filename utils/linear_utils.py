@@ -1,4 +1,5 @@
 import numpy as np
+import zarr
 from scipy.spatial.transform import Rotation as R
 
 from utils.logger import logger
@@ -16,7 +17,7 @@ def create_plane_normal(alpha: int, beta: int, gamma: int) -> np.ndarray:
 
 
 def project_points_onto_plane(
-    points: np.ndarray, plane_point: np.ndarray, plane_normal: np.ndarray
+    points: zarr.Array, plane_point: np.ndarray, plane_normal: np.ndarray
 ) -> tuple[np.ndarray, np.ndarray]:
     """
     Project points on to a plane. Plane is defined by a point and a normal
@@ -47,7 +48,7 @@ def project_points_onto_plane(
         of the plane.
     """
     # make sure both points and plane point are arrays
-    points = np.atleast_2d(points)
+    # points = np.atleast_2d(points)
     plane_point = np.asarray(plane_point)
 
     # make the plane normals have the same shape as the points
