@@ -66,6 +66,6 @@ def read_args() -> Namespace:
         f"dimensions: {args.ndim}, "
         f"points per dimensions: {args.points}, "
         f"chunk size: {args.chunksize}, "
-        f"number of bytes {np.dtype(DTYPE).itemsize*args.points**args.ndim:e}"
+        f"number of bytes {np.dtype(DTYPE).itemsize*args.points*args.ndim:e}"
     )
     return args
