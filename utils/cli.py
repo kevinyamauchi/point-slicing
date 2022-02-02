@@ -34,18 +34,21 @@ def read_args() -> Namespace:
         help=f"box dimensions, default: {DEFAULT_NDIM}",
     )
     parser.add_argument(
+        "--alpha",
         "-a",
         type=int,
         default=DEFAULT_ALPHA,
         help=f"Euler angle alpha in degrees in range [0,360), default: {DEFAULT_ALPHA}",
     )
     parser.add_argument(
+        "--beta",
         "-b",
         type=int,
         default=DEFAULT_BETA,
         help=f"Euler angle beta in degrees in range [0,180], default: {DEFAULT_BETA}",
     )
     parser.add_argument(
+        "--gamma",
         "-g",
         type=int,
         default=DEFAULT_GAMMA,
