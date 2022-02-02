@@ -1,6 +1,7 @@
 # point-slicing
 experiments with slicing points
 
+[![tests](https://github.com/kevinyamauchi/point-slicing/actions/workflows/deploy.yml/badge.svg)](https://github.com/kevinyamauchi/point-slicing/actions/workflows/deploy.yml)
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
 
 ## Formatting
