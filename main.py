@@ -33,18 +33,17 @@ class ZarrExperiment:
         """
         creates a d-dimensional zarr dataset of randomly distributed points
         """
-        box_shape = (self.points_per_dim,) * self.ndim
         try:
             self.box = zarr.open(self._data_path, mode="r")
         except PathNotFoundError:
             self.box = zarr.open(
                 self._data_path,
                 mode="w",
-                shape=box_shape,
+                shape=(self.points_per_dim,) * self.ndim,
                 chunks=(self.chunk_size,) * self.ndim,
                 dtype=DTYPE,
             )
-            self.box[:] = self._rng.random(box_shape, dtype=self.box.dtype)
+            self.box[:] = self._rng.random(self.box.shape, dtype=self.box.dtype)
 
     def extract_slice(self, x: int, y: int, z: int) -> zarr.Array:
         """
