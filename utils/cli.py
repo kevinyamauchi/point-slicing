@@ -3,15 +3,7 @@ from argparse import ArgumentParser, Namespace
 import numpy as np
 
 from utils.logger import logger
-from utils.vars import (
-    DEFAULT_ALPHA,
-    DEFAULT_BETA,
-    DEFAULT_CHUNK_SIZE,
-    DEFAULT_GAMMA,
-    DEFAULT_NDIM,
-    DEFAULT_POINTS_PER_DIM,
-    DTYPE,
-)
+from utils.vars import DEFAULT_CHUNK_SIZE, DEFAULT_NDIM, DEFAULT_POINTS_PER_DIM, DTYPE
 
 
 def read_args() -> Namespace:
@@ -32,27 +24,6 @@ def read_args() -> Namespace:
         type=int,
         default=DEFAULT_NDIM,
         help=f"box dimensions, default: {DEFAULT_NDIM}",
-    )
-    parser.add_argument(
-        "--alpha",
-        "-a",
-        type=int,
-        default=DEFAULT_ALPHA,
-        help=f"Euler angle alpha in degrees in range [0,360), default: {DEFAULT_ALPHA}",
-    )
-    parser.add_argument(
-        "--beta",
-        "-b",
-        type=int,
-        default=DEFAULT_BETA,
-        help=f"Euler angle beta in degrees in range [0,180], default: {DEFAULT_BETA}",
-    )
-    parser.add_argument(
-        "--gamma",
-        "-g",
-        type=int,
-        default=DEFAULT_GAMMA,
-        help=f"Euler angle gamma in degrees in range [0,360), default: {DEFAULT_GAMMA}",
     )
     parser.add_argument(
         "--points",
