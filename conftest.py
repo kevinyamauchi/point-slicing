@@ -1,16 +1,22 @@
 import pytest
-
-from create_data import CreateData
-from utils.vars import DEFAULT_CHUNK_SIZE, DEFAULT_NDIM, DEFAULT_POINTS_PER_DIM
+import zarr
 
 
 @pytest.fixture(scope="session")
-def dummy_points() -> None:
+def point_in_plane() -> zarr.Array:
     """
-    create some dummy zarr data
+    create a point in the default plane
     """
-    return CreateData(
-        ndim=DEFAULT_NDIM,
-        points_per_dim=DEFAULT_POINTS_PER_DIM,
-        chunk_size=DEFAULT_CHUNK_SIZE,
-    ).box
+    z = zarr.empty(shape=(1, 3))
+    z[:] = [[0.3001, 0.1001, 0.5001]]
+    return z
+
+
+@pytest.fixture(scope="session")
+def point_not_in_plane() -> zarr.Array:
+    """
+    create a point outside of the default plane
+    """
+    z = zarr.empty(shape=(1, 3))
+    z[:] = [[0.1, 0.1, 0.1]]
+    return z

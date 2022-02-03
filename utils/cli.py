@@ -92,15 +92,15 @@ def read_args() -> Namespace:
     )
     args = parser.parse_args()
     logger.info(
-        f"dimensions: {args.ndim}, "
-        f"points per dimensions: {args.points}, "
-        f"chunk size: {args.chunksize}, "
-        f"number of bytes {np.dtype(DTYPE).itemsize*args.points*args.ndim:e}, "
-        f"alpha: {args.alpha}\N{DEGREE SIGN}, "
-        f"beta: {args.beta}\N{DEGREE SIGN}, "
-        f"gamma: {args.gamma}\N{DEGREE SIGN}, "
-        f"x: {args.x}, "
-        f"y: {args.y}, "
-        f"z: {args.z}, "
+        f"dimensions: {args.ndim},\n"
+        f"points per dimensions: {args.points},\n"
+        f"chunk size: {args.chunksize},\n"
+        f"number of bytes {np.dtype(DTYPE).itemsize*args.points*args.ndim:e},\n"
+        f"alpha: {args.alpha}\N{DEGREE SIGN},\n"
+        f"beta: {args.beta}\N{DEGREE SIGN},\n"
+        f"gamma: {args.gamma}\N{DEGREE SIGN},\n"
+        f"x: {args.x},\n"
+        f"y: {args.y},\n"
+        f"z: {args.z}."
     )
     return args

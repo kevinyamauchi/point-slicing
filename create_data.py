@@ -32,7 +32,13 @@ class CreateData:
         creates a d-dimensional zarr dataset of randomly distributed points
         """
         try:
-            self.box = zarr.open(self._data_path, mode="r")
+            self.box = zarr.open(
+                self._data_path,
+                mode="r",
+                shape=(self.points_per_dim, self.ndim),
+                chunks=(self.chunk_size, self.ndim),
+                dtype=DTYPE,
+            )
         except PathNotFoundError:
             self.box = zarr.open(
                 self._data_path,
