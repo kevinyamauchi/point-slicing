@@ -5,7 +5,6 @@ import zarr
 from numpy.random import default_rng
 from zarr.errors import PathNotFoundError
 
-from utils.cli import read_args
 from utils.timer import timer
 from utils.vars import DTYPE, RANDOM_SEED
 
@@ -13,10 +12,10 @@ _file_location = Path(__file__).resolve()
 
 
 @dataclass
-class ZarrExperiment:
-    chunk_size: int
+class CreateData:
     ndim: int
     points_per_dim: int
+    chunk_size: int
 
     def __post_init__(self) -> None:
         self._data_path = (
@@ -33,7 +32,13 @@ class ZarrExperiment:
         creates a d-dimensional zarr dataset of randomly distributed points
         """
         try:
-            self.box = zarr.open(self._data_path, mode="r")
+            self.box = zarr.open(
+                self._data_path,
+                mode="r",
+                shape=(self.points_per_dim, self.ndim),
+                chunks=(self.chunk_size, self.ndim),
+                dtype=DTYPE,
+            )
         except PathNotFoundError:
             self.box = zarr.open(
                 self._data_path,
@@ -43,8 +48,3 @@ class ZarrExperiment:
                 dtype=DTYPE,
             )
             self.box[:] = self._rng.random(self.box.shape, dtype=self.box.dtype)
-
-
-if __name__ == "__main__":
-    args = read_args()
-    z = ZarrExperiment(args.chunksize, args.ndim, args.points)

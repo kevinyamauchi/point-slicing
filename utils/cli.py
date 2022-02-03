@@ -3,7 +3,19 @@ from argparse import ArgumentParser, Namespace
 import numpy as np
 
 from utils.logger import logger
-from utils.vars import DEFAULT_CHUNK_SIZE, DEFAULT_NDIM, DEFAULT_POINTS_PER_DIM, DTYPE
+from utils.vars import (
+    DEFAULT_ALPHA,
+    DEFAULT_BETA,
+    DEFAULT_CHUNK_SIZE,
+    DEFAULT_GAMMA,
+    DEFAULT_NDIM,
+    DEFAULT_POINTS_PER_DIM,
+    DEFAULT_TOL,
+    DEFAULT_X,
+    DEFAULT_Y,
+    DEFAULT_Z,
+    DTYPE,
+)
 
 
 def read_args() -> Namespace:
@@ -32,11 +44,63 @@ def read_args() -> Namespace:
         default=DEFAULT_POINTS_PER_DIM,
         help=f"points per dimension, default: {DEFAULT_POINTS_PER_DIM}",
     )
+    parser.add_argument(
+        "--alpha",
+        "-a",
+        type=int,
+        default=DEFAULT_ALPHA,
+        help=f"Euler angle alpha in degrees in range [0,360), default: {DEFAULT_ALPHA}",
+    )
+    parser.add_argument(
+        "--beta",
+        "-b",
+        type=int,
+        default=DEFAULT_BETA,
+        help=f"Euler angle beta in degrees in range [0,180], default: {DEFAULT_BETA}",
+    )
+    parser.add_argument(
+        "--gamma",
+        "-g",
+        type=int,
+        default=DEFAULT_GAMMA,
+        help=f"Euler angle gamma in degrees in range [0,360), default: {DEFAULT_GAMMA}",
+    )
+    parser.add_argument(
+        "-x",
+        type=float,
+        default=DEFAULT_X,
+        help=f"x-coordinate to rotate about, default: {DEFAULT_X}",
+    )
+    parser.add_argument(
+        "-y",
+        type=float,
+        default=DEFAULT_Y,
+        help=f"y-coordinate to rotate about, default: {DEFAULT_Y}",
+    )
+    parser.add_argument(
+        "-z",
+        type=float,
+        default=DEFAULT_Z,
+        help=f"z-coordinate to rotate about, default: {DEFAULT_Z}",
+    )
+    parser.add_argument(
+        "--tolerance",
+        "-t",
+        type=float,
+        default=DEFAULT_TOL,
+        help=f"z-coordinate to rotate about, default: {DEFAULT_Z}",
+    )
     args = parser.parse_args()
     logger.info(
-        f"dimensions: {args.ndim}, "
-        f"points per dimensions: {args.points}, "
-        f"chunk size: {args.chunksize}, "
-        f"number of bytes {np.dtype(DTYPE).itemsize*args.points*args.ndim:e}"
+        f"dimensions: {args.ndim},\n"
+        f"points per dimensions: {args.points},\n"
+        f"chunk size: {args.chunksize},\n"
+        f"number of bytes {np.dtype(DTYPE).itemsize*args.points*args.ndim:e},\n"
+        f"alpha: {args.alpha}\N{DEGREE SIGN},\n"
+        f"beta: {args.beta}\N{DEGREE SIGN},\n"
+        f"gamma: {args.gamma}\N{DEGREE SIGN},\n"
+        f"x: {args.x},\n"
+        f"y: {args.y},\n"
+        f"z: {args.z}."
     )
     return args

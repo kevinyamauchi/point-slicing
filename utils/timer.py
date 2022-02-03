@@ -1,13 +1,21 @@
+import functools
 from timeit import default_timer
 
 from utils.logger import logger
 
 
 def timer(func):
-    def wrapper(*args, **kwargs):
-        start = default_timer()
-        func(*args, **kwargs)
-        end = default_timer()
-        logger.info(f"Time taken for {func.__name__} was {end - start:e}")
+    """
+    Decorator to time a function
+    """
 
-    return wrapper
+    @functools.wraps(func)
+    def time_closure(*args, **kwargs):
+        """time_wrapper's doc string"""
+        start = default_timer()
+        result = func(*args, **kwargs)
+        end = default_timer()
+        logger.info(f"Function: {func.__name__}, Time: {end-start:e} s")
+        return result
+
+    return time_closure
